@@ -1,7 +1,6 @@
 // import { useRoute } from "@react-navigation/native";
 import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import { Post } from "../Components/Post";
-import { SvgComent, SvgLocation } from "../images/Svg";
 
 export const PostsScreen = () => {
   // const route = useRoute();
