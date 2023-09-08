@@ -1,77 +1,86 @@
-// import { View, Text, StyleSheet } from "react-native";
-
-// export const PostsScreen = () => {
-//   return (
-//     <View style={styles.wrapper}>
-//       <Text>Публікації</Text>
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   wrapper: {
-//     flex: 1,
-//     marginTop: 50,
-//   },
-// });
-
-// Home.js
-
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
-
-function Settings() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
-
-function Profile() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Profile!</Text>
-    </View>
-  );
-}
-
-const Tabs = createBottomTabNavigator();
+// import { useRoute } from "@react-navigation/native";
+import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import { Post } from "../Components/Post";
+import { SvgComent, SvgLocation } from "../images/Svg";
 
 export const PostsScreen = () => {
-  return (
-    <Tabs.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName;
+  // const route = useRoute();
+  // const { login, email } = route.params;
 
-          if (route.name === "Profile") {
-            iconName = focused
-              ? "ios-information-circle"
-              : "ios-information-circle-outline";
-          } else if (route.name === "Settings") {
-            iconName = focused ? "ios-settings" : "ios-list";
-          }
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
-      })}
-      tabBarOptions={{
-        activeTintColor: "tomato",
-        inactiveTintColor: "gray",
-      }}
-    >
-      <Tabs.Screen name="Settings" component={Settings} />
-      <Tabs.Screen name="Profile" component={Profile} />
-    </Tabs.Navigator>
+  return (
+    <View style={styles.wrapper}>
+      <View style={styles.userInfo}>
+        <Image
+          style={styles.userAvatar}
+          source={require("../images/avatar.jpg")}
+        />
+        <View>
+          <Text style={styles.userName}>Natali Romanova</Text>
+          <Text style={styles.userEmail}>email@example.com</Text>
+          {/* <Text style={styles.userName}>{login}</Text>
+          <Text style={styles.userEmail}>{email}</Text> */}
+        </View>
+      </View>
+      <View style={styles.allPostsWrapper}>
+        <ScrollView contentContainerStyle={styles.scroll}>
+          <Post
+            image={require("../images/forest.png")}
+            title={"Ліс"}
+            comentQuantity={0}
+            location={"Ivano-Frankivs'k Region, Ukraine"}
+          />
+          <Post
+            image={require("../images/sunset.png")}
+            title={"Захід на Чорному морі"}
+            comentQuantity={0}
+            location={"Ukraine"}
+          />
+          <Post
+            image={require("../images/house.png")}
+            title={"Старий будиночок у Венеції"}
+            comentQuantity={0}
+            location={"Italy"}
+          />
+        </ScrollView>
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  wrapper: {
     flex: 1,
+    backgroundColor: "#fff",
+  },
+  userInfo: {
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
+    marginLeft: 16,
+    marginTop: 32,
+    marginBottom: 32,
+  },
+  userAvatar: {
+    borderRadius: 16,
+    width: 60,
+    height: 60,
+    marginRight: 8,
+  },
+  userName: {
+    lineHeight: 15,
+    fontFamily: "Roboto-Bold",
+    fontSize: 13,
+  },
+  userEmail: {
+    lineHeight: 13,
+    fontFamily: "Roboto-Regular",
+    fontSize: 11,
+  },
+  allPostsWrapper: {
+    flex: 1,
+    position: "relative",
+  },
+  scroll: {
+    paddingLeft: 16,
+    paddingRight: 16,
   },
 });

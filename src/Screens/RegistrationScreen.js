@@ -15,6 +15,7 @@ import {
   Keyboard,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { SvgAdd } from "../images/Svg";
 
 const validationSchema = object().shape({
   login: string().required("Логін є обов'язковим полем"),
@@ -67,6 +68,14 @@ export const RegistrationScreen = () => {
     setEmail("");
     setPassword("");
     reset();
+
+    navigation.navigate("Home", {
+      screen: "PostsScreen",
+      // params: {
+      //   login: login,
+      //   email: email,
+      // },
+    });
   };
 
   return (
@@ -88,10 +97,7 @@ export const RegistrationScreen = () => {
               style={styles.avatarImage}
             />
             <TouchableOpacity style={styles.addButton} onPress={addAvatar}>
-              <Image
-                source={require("../images/added.png")}
-                style={styles.addButtonIcon}
-              />
+              <SvgAdd />
             </TouchableOpacity>
           </View>
           <Text style={styles.registrationTitle}>Реєстрація</Text>
@@ -228,11 +234,7 @@ const styles = StyleSheet.create({
     width: 44,
     height: 44,
     right: -24,
-    bottom: 7,
-  },
-  addButtonIcon: {
-    width: 44,
-    height: 44,
+    bottom: 0,
   },
   registrationTitle: {
     fontFamily: "Roboto-Medium",

@@ -56,6 +56,13 @@ export const LoginScreen = () => {
     setEmail("");
     setPassword("");
     reset();
+
+    navigation.navigate("Home", {
+      screen: "PostsScreen",
+      params: {
+        email: email,
+      },
+    });
   };
 
   return (

@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import { SvgCamera, SvgLocation, SvgTrash } from "../images/Svg";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigation } from "@react-navigation/native";
 
 const schema = yup.object().shape({
   title: yup.string().required("Введіть назву публікації"),
@@ -21,6 +22,7 @@ const schema = yup.object().shape({
 });
 
 export const CreatePostsScreen = () => {
+  const navigation = useNavigation();
   const {
     control,
     handleSubmit,
@@ -67,8 +69,8 @@ export const CreatePostsScreen = () => {
     });
 
     resetForm();
+    navigation.navigate("PostsScreen");
   };
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.screenContainer}>

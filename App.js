@@ -1,13 +1,15 @@
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Button, StyleSheet, View } from "react-native";
+import { StyleSheet, TouchableOpacity } from "react-native";
 import { LoginScreen } from "./src/Screens/LoginScreen";
-import { PostsScreen } from "./src/Screens/PostsScreen";
+
 import { RegistrationScreen } from "./src/Screens/RegistrationScreen";
 import { createStackNavigator } from "@react-navigation/stack";
-import { CreatePostsScreen } from "./src/Screens/CreatePostsScreen";
-import { SvgBack, SvgLogOut } from "./src/images/Svg";
+
+import { SvgBack } from "./src/images/Svg";
+import { Home } from "./src/Screens/Home";
+import { CommentsScreen } from "./src/Screens/CommentsScreen";
 
 const MainStack = createStackNavigator(); // вказує на групу навігаторів
 
@@ -25,32 +27,41 @@ export default function App() {
   return (
     <NavigationContainer>
       <MainStack.Navigator style={styles.container} initialRouteName="Login">
-        {/* <MainStack.Screen name="Registration" component={RegistrationScreen} />
+        <MainStack.Screen
+          name="Registration"
+          component={RegistrationScreen}
+          options={{ headerShown: false }}
+        />
         <MainStack.Screen
           name="Login"
           component={LoginScreen}
-        /> */}
-        {/* <MainStack.Screen name="Post" component={PostsScreen} /> */}
+          options={{ headerShown: false }}
+        />
         <MainStack.Screen
-          name="Створити публікацію"
-          component={CreatePostsScreen}
-          style={styles.container}
-          options={{
+          name="Home"
+          component={Home}
+          options={{ headerShown: false }}
+        />
+        <MainStack.Screen
+          name="Comments"
+          component={CommentsScreen}
+          options={({ navigation }) => ({
+            title: "Коментарі",
             headerTitleStyle: {
               fontSize: 17,
-              lineHeight: 22,
               textAlign: "center",
               fontFamily: "Roboto-Medium",
-              paddingBottom: 11,
-              paddingTop: 11,
             },
-            headerStyle: {
-              borderBottomColor: "rgba(0, 0, 0, 0.3)",
-              borderBottomWidth: 1,
-              height: 88,
-            },
-            headerLeft: () => <SvgBack style={styles.svgBack} />,
-          }}
+            headerLeft: () => (
+              <TouchableOpacity
+                style={styles.backBtn}
+                // onPress={() => navigation.navigate("PostsScreen")}
+                onPress={() => navigation.goBack()}
+              >
+                <SvgBack />
+              </TouchableOpacity>
+            ),
+          })}
         />
       </MainStack.Navigator>
     </NavigationContainer>
@@ -63,11 +74,5 @@ const styles = StyleSheet.create({
     paddingTop: 44,
     paddingBottom: 32,
   },
-  svgBack: {
-    position: "absolute",
-    top: 10,
-    height: 24,
-    width: 24,
-    left: 16,
-  },
+  backBtn: { marginLeft: 16 },
 });
